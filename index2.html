@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Girlfriend's Day - Kawaii Bouquet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #fff5fb, #ffe6f0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      color: #ff8ac4;
+      margin-top: 40px;
+      text-shadow: 1px 1px #fff;
+    }
+
+    p {
+      color: #d666a6;
+      margin-bottom: 10px;
+    }
+
+    .bouquet {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      max-width: 900px;
+      margin: 30px 0 100px;
+      position: relative;
+    }
+
+    .flower {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #fff0f6;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .flower:hover {
+      transform: scale(1.1);
+    }
+
+    .emoji {
+      font-size: 48px;
+    }
+
+    .vase {
+      position: absolute;
+      bottom: -100px;
+      width: 140px;
+      height: 160px;
+      background: linear-gradient(145deg, #fcd2e4, #f5a8d0);
+      border-radius: 25px 25px 60px 60px;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      z-index: 0;
+      border: 2px solid #ffb3d9;
+    }
+
+    .message-container {
+      background: rgba(255,255,255,0.8);
+      border: 2px dashed #ff99cc;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin-top: 20px;
+      color: #d23c77;
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .reset-btn, .music-btn {
+      background: linear-gradient(to right, #ff99cc, #ff66a3);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 20px 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+
+    .reset-btn:hover, .music-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .floating {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp 4s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% {transform: translateY(0); opacity: 0.8;}
+      100% {transform: translateY(-100px); opacity: 0;}
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Happy Girlfriend's Day!</h1>
+  <p>Click or hover on a flower to reveal a sweet message 💕</p>
+
+  <div class="bouquet">
+    <div class="flower" data-message="You're as lovely as a rose. 💐"><div class="emoji">🌹</div></div>
+    <div class="flower" data-message="You're my sunshine tulip! ☀️"><div class="emoji">🌷</div></div>
+    <div class="flower" data-message="Like a daisy, you brighten every day. 🌼"><div class="emoji">🌼</div></div>
+    <div class="flower" data-message="My pure and perfect lily 💖"><div class="emoji">🌸</div></div>
+    <div class="flower" data-message="You're my cherry blossom dream 🌺"><div class="emoji">🌺</div></div>
+    <div class="vase"></div>
+  </div>
+
+  <div class="message-container" id="messageBox">You are amazing 💗</div>
+
+  <button class="reset-btn" onclick="resetMessage()">Reset</button>
+  <button class="music-btn" onclick="toggleMusic()">Toggle Music 🎵</button>
+
+  <span class="floating" style="left:20%; bottom:100px;">💖</span>
+  <span class="floating" style="left:60%; bottom:120px;">✨</span>
+  <span class="floating" style="left:40%; bottom:90px;">💗</span>
+
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/11/03/audio_7a1480ba1e.mp3?filename=fluffy-dream-ambient-music-12688.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const flowers = document.querySelectorAll('.flower');
+    const messageBox = document.getElementById('messageBox');
+    const music = document.getElementById('bgMusic');
+
+    flowers.forEach(flower => {
+      flower.addEventListener('mouseenter', () => {
+        const message = flower.getAttribute('data-message');
+        messageBox.textContent = message;
+        messageBox.style.display = 'block';
+      });
+
+      flower.addEventListener('click', () => {
+        const message = flower.getAttribute('data-message');
+        messageBox.textContent = message;
+        messageBox.style.display = 'block';
+      });
+    });
+
+    function resetMessage() {
+      messageBox.style.display = 'none';
+    }
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    // Autoplay music if user clicks anywhere
+    document.body.addEventListener('click', () => {
+      if (music.paused) music.play();
+    }, { once: true });
+  </script>
+
+</body>
+</html>
