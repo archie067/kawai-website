@@ -145,7 +145,7 @@
   <span class="floating" style="left:40%; bottom:90px;">💗</span>
 
   <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/11/03/audio_7a1480ba1e.mp3?filename=fluffy-dream-ambient-music-12688.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/audio/2023/02/13/audio_8b50720a35.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -180,7 +180,7 @@
       }
     }
 
-    // Autoplay music if user clicks anywhere
+    // Optional autoplay on click anywhere (browser-safe)
     document.body.addEventListener('click', () => {
       if (music.paused) music.play();
     }, { once: true });
